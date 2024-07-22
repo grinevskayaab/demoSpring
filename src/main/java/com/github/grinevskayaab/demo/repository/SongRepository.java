@@ -2,7 +2,7 @@ package com.github.grinevskayaab.demo.repository;
 
 import com.github.grinevskayaab.demo.entity.Song;
 import com.github.grinevskayaab.demo.repository.mapper.SongMapper;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -14,14 +14,10 @@ import java.sql.Types;
 import java.util.List;
 
 @Repository
+@AllArgsConstructor
 public class SongRepository implements CrudRepository<Long, Song> {
 
     private final JdbcTemplate jdbcTemplate;
-
-    @Autowired
-    public SongRepository(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
-    }
 
     @Override
     public Song findById(Long id) {
@@ -78,13 +74,15 @@ public class SongRepository implements CrudRepository<Long, Song> {
     }
 
     public List<Song> getTopSingles() {
-        return jdbcTemplate.query(" select s.name, sum(stat.count_plays) as sum, s.id, s.album_id, s.year\n" +
-                "                from songs_stat stat\n" +
-                "                         join songs s on stat.song_id = s.id\n" +
-                "                where s.album_id is null\n" +
-                "                  and stat.date > date_trunc('month', NOW()) - '6 month'::INTERVAL\n" +
-                "                group by s.id\n" +
-                "                order by sum desc\n" +
-                "                limit 3;", new SongMapper());
+        return jdbcTemplate.query("""
+                 select s.name, sum(stat.count_plays) as sum, s.id, s.album_id, s.year
+                                from songs_stat stat
+                                         join songs s on stat.song_id = s.id
+                                where s.album_id is null
+                                  and stat.date > date_trunc('month', NOW()) - '6 month'::INTERVAL
+                                group by s.id
+                                order by sum desc
+                                limit 3;\
+                """, new SongMapper());
     }
 }

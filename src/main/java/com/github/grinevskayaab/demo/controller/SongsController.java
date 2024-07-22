@@ -1,54 +1,47 @@
 package com.github.grinevskayaab.demo.controller;
 
 import com.github.grinevskayaab.demo.entity.Song;
-import com.github.grinevskayaab.demo.repository.SongRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.github.grinevskayaab.demo.service.SongService;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/songs")
+@AllArgsConstructor
 public class SongsController {
 
-    private final SongRepository songRepository;
+    private final SongService songService;
 
-    @Autowired
-    public SongsController(SongRepository songRepository) {
-        this.songRepository = songRepository;
-    }
 
     @GetMapping()
     public List<Song> getSongs() {
-        return songRepository.findAll();
+        return songService.getSongs();
     }
 
     @GetMapping("/{id}")
     public Song getSong(@PathVariable("id") Long id) {
-        return songRepository.findById(id);
+        return songService.getSong(id);
     }
 
     @GetMapping("/top/singles")
     public List<Song> getTopSongs() {
-        return songRepository.getTopSingles();
+        return songService.getTopSongs();
     }
 
     @PostMapping()
     public Song createSong(@ModelAttribute("song") Song song) {
-        return songRepository.create(song);
+        return songService.createSong(song);
     }
 
     @DeleteMapping("/{id}")
     public void deleteSong(@PathVariable("id") Long id) {
-        songRepository.delete(id);
+        songService.deleteSong(id);
     }
 
     @PutMapping("/{id}")
     public Song updateSong(@PathVariable("id") Long id, @ModelAttribute("song") Song song) {
-        Song newSong = songRepository.findById(id);
-        if(song.getName() != null) newSong.setName(song.getName());
-        if(song.getYear() != null) newSong.setYear(song.getYear());
-
-        return songRepository.update(newSong);
+        return songService.updateSong(id, song);
     }
 }

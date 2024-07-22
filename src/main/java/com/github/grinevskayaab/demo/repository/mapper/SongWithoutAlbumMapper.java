@@ -11,7 +11,8 @@ public class SongWithoutAlbumMapper implements RowMapper<Song> {
     public Song mapRow(ResultSet rs, int rowNum) throws SQLException {
         return new Song(
                 rs.getLong("id"),
+                rs.getObject("year") == null ? null : rs.getInt("year"),
                 rs.getString("name"),
-                rs.getObject("year") == null ? null : rs.getInt("year"));
+                null);
     }
 }

@@ -24,8 +24,8 @@ public class SongMapper implements RowMapper<Song> {
         }
         return new Song(
                 rs.getLong("id"),
-                rs.getString("name"),
                 rs.getObject("year") == null ? null : rs.getInt("year"),
+                rs.getString("name"),
                 album);
     }
 

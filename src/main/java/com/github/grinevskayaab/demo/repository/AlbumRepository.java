@@ -4,7 +4,7 @@ import com.github.grinevskayaab.demo.entity.Album;
 import com.github.grinevskayaab.demo.entity.Song;
 import com.github.grinevskayaab.demo.repository.mapper.AlbumMapper;
 import com.github.grinevskayaab.demo.repository.mapper.SongWithoutAlbumMapper;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -16,13 +16,9 @@ import java.sql.Types;
 import java.util.List;
 
 @Repository
+@AllArgsConstructor
 public class AlbumRepository implements CrudRepository<Long, Album>{
     private final JdbcTemplate jdbcTemplate;
-
-    @Autowired
-    public AlbumRepository( JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
-    }
 
     @Override
     public Album findById(Long id) {

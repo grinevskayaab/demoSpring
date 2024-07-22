@@ -3,7 +3,6 @@ package com.github.grinevskayaab.demo.repository;
 import com.github.grinevskayaab.demo.entity.Album;
 import com.github.grinevskayaab.demo.entity.Song;
 import com.github.grinevskayaab.demo.repository.mapper.AlbumMapper;
-import com.github.grinevskayaab.demo.repository.mapper.SongMapper;
 import com.github.grinevskayaab.demo.repository.mapper.SongWithoutAlbumMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -13,10 +12,7 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Types;
-import java.util.ArrayList;
 import java.util.List;
 
 @Repository

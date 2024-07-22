@@ -1,4 +1,4 @@
-package com.github.grinevskayaab.demo.controllers;
+package com.github.grinevskayaab.demo.controller;
 
 import com.github.grinevskayaab.demo.entity.Song;
 import com.github.grinevskayaab.demo.repository.SongRepository;
@@ -43,7 +43,7 @@ public class SongsController {
         songRepository.delete(id);
     }
 
-    @PatchMapping("/{id}")
+    @PutMapping("/{id}")
     public Song updateSong(@PathVariable("id") Long id, @ModelAttribute("song") Song song) {
         Song newSong = songRepository.findById(id);
         if(song.getName() != null) newSong.setName(song.getName());

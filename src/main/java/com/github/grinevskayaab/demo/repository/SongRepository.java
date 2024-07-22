@@ -1,13 +1,12 @@
 package com.github.grinevskayaab.demo.repository;
 
 import com.github.grinevskayaab.demo.entity.Song;
-import com.github.grinevskayaab.demo.mappers.SongMapper;
+import com.github.grinevskayaab.demo.repository.mapper.SongMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
@@ -15,22 +14,19 @@ import java.sql.Types;
 import java.util.List;
 
 @Repository
-@Component
 public class SongRepository implements CrudRepository<Long, Song> {
 
-    private final SongMapper songMapper;
     private final JdbcTemplate jdbcTemplate;
 
     @Autowired
-    public SongRepository(JdbcTemplate jdbcTemplate, SongMapper songMapper) {
+    public SongRepository(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
-        this.songMapper = songMapper;
     }
 
     @Override
     public Song findById(Long id) {
         try {
-            return jdbcTemplate.queryForObject("select * from songs where id=?", songMapper, id);
+            return jdbcTemplate.queryForObject("select * from songs where id=?", new SongMapper(), id);
         } catch (EmptyResultDataAccessException e) {
             return null;
         }
@@ -38,22 +34,11 @@ public class SongRepository implements CrudRepository<Long, Song> {
 
     @Override
     public List<Song> findAll() {
-        return jdbcTemplate.query("select * from songs", songMapper);
+        return jdbcTemplate.query("select * from songs", new SongMapper());
     }
 
     @Override
     public Song create(Song song) {
-
-//        MapSqlParameterSource parameters = new MapSqlParameterSource();
-//        parameters.addValue("name", song.getName(), Types.VARCHAR);
-//        parameters.addValue("year", song.getYear(), Types.INTEGER);
-//        parameters.addValue("album_id", null, Types.INTEGER );
-//        SqlParameterSource data = new BeanPropertySqlParameterSource(song);
-//        KeyHolder keyHolder = new GeneratedKeyHolder();
-//
-//        jdbcTemplate.update("insert into songs (name,year,album_id) values (:song)", data, keyHolder,
-//                new String[]{"id"});
-
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection
@@ -80,9 +65,9 @@ public class SongRepository implements CrudRepository<Long, Song> {
 
     @Override
     public Song update(Song song) {
-         jdbcTemplate.update("update songs set name = ?, year = ? where id = ?", song.getName(),
-                song.getYear(),  song.getId());
-         return song;
+        jdbcTemplate.update("update songs set name = ?, year = ? where id = ?", song.getName(),
+                song.getYear(), song.getId());
+        return song;
     }
 
     @Override

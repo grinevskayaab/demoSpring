@@ -1,4 +1,4 @@
-package com.github.grinevskayaab.demo.mappers;
+package com.github.grinevskayaab.demo.repository.mapper;
 
 import com.github.grinevskayaab.demo.entity.Album;
 import org.springframework.jdbc.core.RowMapper;

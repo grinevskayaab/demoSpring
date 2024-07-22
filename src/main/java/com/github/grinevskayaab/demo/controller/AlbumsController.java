@@ -1,4 +1,4 @@
-package com.github.grinevskayaab.demo.controllers;
+package com.github.grinevskayaab.demo.controller;
 
 import com.github.grinevskayaab.demo.entity.Album;
 import com.github.grinevskayaab.demo.repository.AlbumRepository;
@@ -38,7 +38,7 @@ public class AlbumsController {
         albumRepository.delete(id);
     }
 
-    @PatchMapping("/{id}")
+    @PutMapping("/{id}")
     public Album updateAlbum(@PathVariable("id") Long id, @ModelAttribute("album") Album album) {
         Album newALbum = albumRepository.findById(id);
         if(album.getName() != null) newALbum.setName(album.getName());

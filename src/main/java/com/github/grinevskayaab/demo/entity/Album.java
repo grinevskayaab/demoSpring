@@ -1,6 +1,5 @@
 package com.github.grinevskayaab.demo.entity;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Album {

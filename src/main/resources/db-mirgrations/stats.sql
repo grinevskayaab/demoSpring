@@ -26,7 +26,7 @@ from authors a
          join songs_stat stat on s.id = stat.song_id
 group by a.id
 order by sum desc
-limit 3;
+limit 1;
 
 
 -- Вывести топ 3 фита по прослушиваниям за предыдущий месяц
@@ -35,7 +35,7 @@ from authors a
          join authors_songs aus on a.id = aus.author_id
          join songs s on aus.song_id = s.id
          join songs_stat stat on s.id = stat.song_id
-where date > date_trunc('month', NOW()) - '1 month'::INTERVAL
+where date > date_trunc('month', NOW()) - '3 month'::INTERVAL
 GROUP BY s.id
 having count(aus.song_id) = 2
 order by sum desc

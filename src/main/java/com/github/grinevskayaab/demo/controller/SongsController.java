@@ -1,5 +1,6 @@
 package com.github.grinevskayaab.demo.controller;
 
+import com.github.grinevskayaab.demo.entity.Author;
 import com.github.grinevskayaab.demo.entity.Song;
 import com.github.grinevskayaab.demo.service.SongService;
 import lombok.AllArgsConstructor;
@@ -26,9 +27,15 @@ public class SongsController {
     }
 
     @GetMapping("/top/singles")
-    public List<Song> getTopSongs() {
-        return songService.getTopSongs();
+    public List<Song> getTopSingles() {
+        return songService.getTopSingles();
     }
+
+    @GetMapping("/top/feats")
+    public List<Song> getTopFeats() {
+        return songService.getTopFeats();
+    }
+
 
     @PostMapping()
     public Song createSong(@ModelAttribute("song") Song song) {

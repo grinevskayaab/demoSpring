@@ -25,4 +25,10 @@ public class AuthorController {
     public List<AuthorWithCash> getAuthorsCash() {
         return authorService.getAuthorsCash();
     }
+
+
+    @GetMapping()
+    public List<Author> getAuthors() {
+        return authorService.getAuthors();
+    }
 }

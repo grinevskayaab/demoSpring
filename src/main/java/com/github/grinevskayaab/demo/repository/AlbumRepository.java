@@ -6,32 +6,54 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Timestamp;
 import java.util.List;
+
 
 
 @Repository
 public interface AlbumRepository extends JpaRepository<Album, Long> {
 
+//    @Query(value = """
+//            select al.*
+//            from albums al
+//                     join songs s on al.id = s.album_id
+//                     join songs_stat stat on s.id = stat.song_id
+//            where  stat.date > date_trunc('month', NOW()) - '6 month'::INTERVAL
+//            group by al.id
+//            order by sum(stat.count_plays) desc
+//            limit 3;""", nativeQuery = true)
+//    List<Album> getTopAlbums();
+
     @Query(value = """
-            select al.*
-            from albums al
-                     join songs s on al.id = s.album_id
-                     join songs_stat stat on s.id = stat.song_id
-            where  stat.date > date_trunc('month', NOW()) - '6 month'::INTERVAL
-            group by al.id
-            order by sum(stat.count_plays) desc
-            limit 3;""", nativeQuery = true)
-    List<Album> getTopAlbums();
+        select album from Album album join album.songs song join song.stat stat
+        where  stat.date >= :date
+        group by album.id
+        order by sum(stat.countPlays) desc 
+        limit 3""")
+    List<Album> getTopAlbums(Timestamp date);
 
 
+//    @Query(value = """
+//            select id, name,
+//                   round(sum(sum_one_quarter) / count(id), 2) as countPlaysAvg
+//            from (select al.id as id, al.name, sum(stat.count_plays) as sum_one_quarter
+//                  from albums al
+//                           join songs s on al.id = s.album_id
+//                           join songs_stat stat on s.id = stat.song_id
+//                  group by al.id, date_trunc('quarter', stat.date)) as aisoq
+//            group by id, name""", nativeQuery = true)
+//    List<AlbumWithCountPlays> getAlbumWithCountPlays();
+
     @Query(value = """
-            select id, name,
-                   round(sum(sum_one_quarter) / count(id), 2) as countPlaysAvg
-            from (select al.id as id, al.name, sum(stat.count_plays) as sum_one_quarter
-                  from albums al
-                           join songs s on al.id = s.album_id
-                           join songs_stat stat on s.id = stat.song_id
-                  group by al.id, date_trunc('quarter', stat.date)) as aisoq
-            group by id, name""", nativeQuery = true)
+            with testTable as(
+                    select al.id as al_id, al.name as al_name, sum(stat.countPlays) as sum_one_quarter
+            from Album al join al.songs song join song.stat stat
+            group by al.id, al.name, date_trunc('quarter', stat.date)
+                   )
+            select new com.github.grinevskayaab.demo.dto.AlbumWithCountPlays(al_id, al_name, round(sum(sum_one_quarter) / count(al_id), 2))
+            from testTable
+            group by al_id, al_name
+            """)
     List<AlbumWithCountPlays> getAlbumWithCountPlays();
 }

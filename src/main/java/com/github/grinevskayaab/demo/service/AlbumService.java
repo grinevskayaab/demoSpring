@@ -6,6 +6,8 @@ import com.github.grinevskayaab.demo.repository.AlbumRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,7 +22,13 @@ public class AlbumService {
     }
 
     public Album getAlbum(Long id) {
-        return albumRepository.findById(id).orElse(null);
+
+//        return albumRepository.findById(id).orElse(null);
+        Album album = albumRepository.findById(id).orElse(null);
+        for(var song :album.getSongs()) {
+            System.out.println(song.getName());
+        }
+        return album;
     }
 
     public Album createAlbum(Album album) {
@@ -44,7 +52,7 @@ public class AlbumService {
     }
 
     public List<Album> getTopAlbums() {
-        return albumRepository.getTopAlbums();
+        return albumRepository.getTopAlbums(Timestamp.valueOf(LocalDateTime.now().minusMonths(6)));
     }
 
     public List<AlbumWithCountPlays> getAlbumWithCountPlays() {

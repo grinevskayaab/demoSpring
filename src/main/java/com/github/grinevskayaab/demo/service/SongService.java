@@ -1,11 +1,12 @@
 package com.github.grinevskayaab.demo.service;
 
-import com.github.grinevskayaab.demo.entity.Author;
 import com.github.grinevskayaab.demo.entity.Song;
 import com.github.grinevskayaab.demo.repository.SongRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,11 +25,11 @@ public class SongService {
     }
 
     public List<Song> getTopSingles() {
-        return songRepository.getTopSingles();
+        return songRepository.getTosSingles(Timestamp.valueOf(LocalDateTime.now().minusMonths(6)));
     }
 
     public List<Song> getTopFeats() {
-        return songRepository.getTopFeats();
+        return songRepository.getTopFeats(Timestamp.valueOf(LocalDateTime.now().minusMonths(3)));
     }
 
     public Song createSong(Song song) {

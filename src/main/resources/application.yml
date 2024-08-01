@@ -5,6 +5,11 @@ spring:
     url: jdbc:postgresql://localhost:5432/postgres
     username: admin
     password: admin
+  jpa:
+    properties:
+      hibernate:
+        format_sql: true
+    open-in-view: false
 logging:
   level:
     org.hibernate.SQL: DEBUG

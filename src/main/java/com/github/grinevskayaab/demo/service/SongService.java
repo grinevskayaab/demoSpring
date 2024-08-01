@@ -5,8 +5,6 @@ import com.github.grinevskayaab.demo.repository.SongRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,19 +15,12 @@ public class SongService {
     private final SongRepository songRepository;
 
     public List<Song> getSongs() {
-        return songRepository.findAll();
+        List<Song> song = songRepository.findAll();
+        return song;
     }
 
     public Song getSong(Long id) {
         return songRepository.findById(id).orElse(null);
-    }
-
-    public List<Song> getTopSingles() {
-        return songRepository.getTosSingles(Timestamp.valueOf(LocalDateTime.now().minusMonths(6)));
-    }
-
-    public List<Song> getTopFeats() {
-        return songRepository.getTopFeats(Timestamp.valueOf(LocalDateTime.now().minusMonths(3)));
     }
 
     public Song createSong(Song song) {

@@ -26,16 +26,6 @@ public class SongsController {
         return songService.getSong(id);
     }
 
-    @GetMapping("/top/singles")
-    public List<Song> getTopSingles() {
-        return songService.getTopSingles();
-    }
-
-    @GetMapping("/top/feats")
-    public List<Song> getTopFeats() {
-        return songService.getTopFeats();
-    }
-
 
     @PostMapping()
     public Song createSong(@ModelAttribute("song") Song song) {

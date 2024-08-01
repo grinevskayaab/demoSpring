@@ -1,18 +1,17 @@
 package com.github.grinevskayaab.demo.service;
 
-import com.github.grinevskayaab.demo.dto.AlbumWithCountPlays;
 import com.github.grinevskayaab.demo.entity.Album;
 import com.github.grinevskayaab.demo.repository.AlbumRepository;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 @AllArgsConstructor
+@Transactional
 public class AlbumService {
 
     private final AlbumRepository albumRepository;
@@ -25,9 +24,9 @@ public class AlbumService {
 
 //        return albumRepository.findById(id).orElse(null);
         Album album = albumRepository.findById(id).orElse(null);
-        for(var song :album.getSongs()) {
-            System.out.println(song.getName());
-        }
+//        for(var song : album.getSongs()) {
+//            System.out.println(song.getName());
+//        }
         return album;
     }
 
@@ -49,13 +48,5 @@ public class AlbumService {
             return albumRepository.save(updateAlbum);
         }
         return null;
-    }
-
-    public List<Album> getTopAlbums() {
-        return albumRepository.getTopAlbums(Timestamp.valueOf(LocalDateTime.now().minusMonths(6)));
-    }
-
-    public List<AlbumWithCountPlays> getAlbumWithCountPlays() {
-        return albumRepository.getAlbumWithCountPlays();
     }
 }

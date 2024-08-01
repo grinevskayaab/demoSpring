@@ -1,6 +1,5 @@
 package com.github.grinevskayaab.demo.controller;
 
-import com.github.grinevskayaab.demo.dto.AlbumWithCountPlays;
 import com.github.grinevskayaab.demo.entity.Album;
 import com.github.grinevskayaab.demo.service.AlbumService;
 import lombok.AllArgsConstructor;
@@ -22,16 +21,7 @@ public class AlbumsController {
 
     @GetMapping("/{id}")
     public Album getAlbum(@PathVariable("id") Long id) {
-        return albumService.getAlbum(id);
-    }
-
-    @GetMapping("/top")
-    public List<Album> getTopAlbums() {
-        return albumService.getTopAlbums();
-    }
-    @GetMapping("/plays/avg")
-    public List<AlbumWithCountPlays> getAlbumWithCountPlays() {
-        return albumService.getAlbumWithCountPlays();
+         return albumService.getAlbum(id);
     }
 
     @PostMapping()

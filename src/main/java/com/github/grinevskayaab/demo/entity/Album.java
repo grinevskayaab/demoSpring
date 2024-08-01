@@ -1,11 +1,10 @@
 package com.github.grinevskayaab.demo.entity;
 
-import com.github.grinevskayaab.demo.repository.AlbumRepository;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.data.jdbc.repository.config.EnableJdbcRepositories;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Setter
@@ -15,26 +14,23 @@ import java.util.List;
 @ToString
 @Entity
 @Table(name = "albums")
-@EnableJdbcRepositories(basePackageClasses = AlbumRepository.class)
 public class Album {
     @Id
-    @Column(name = "id")
+    @Column
     @SequenceGenerator(name = "albums_id_seq", sequenceName = "albums_id_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "albums_id_seq")
     private Long id;
 
-    @Column(name="name", unique=true)
+    @Column
     private String name;
 
     @Column
     private Integer year = null;
 
-//    @Transient
-    @OneToMany(mappedBy = "album")
-    private List<Song> songs = new ArrayList<>();
+    @OneToMany(mappedBy = "album", fetch = FetchType.LAZY)
+    private List<Song> songs;
 
-    public Album(Long id) {
-        this.id = id;
-    }
+    @ManyToMany(mappedBy = "albums", fetch = FetchType.LAZY)
+    private List<Author> authors;
 }
 

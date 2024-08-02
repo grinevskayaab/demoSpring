@@ -22,12 +22,12 @@ public class AlbumService {
 
     public Album getAlbum(Long id) {
 
-//        return albumRepository.findById(id).orElse(null);
-        Album album = albumRepository.findById(id).orElse(null);
+        return albumRepository.findById(id).orElse(null);
+//        Album album = albumRepository.findById(id).orElse(null);
 //        for(var song : album.getSongs()) {
 //            System.out.println(song.getName());
 //        }
-        return album;
+//        return album;
     }
 
     public Album createAlbum(Album album) {

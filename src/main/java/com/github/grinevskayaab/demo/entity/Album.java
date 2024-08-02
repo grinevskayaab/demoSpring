@@ -26,11 +26,11 @@ public class Album {
 
     @Column
     private Integer year = null;
-
-    @OneToMany(mappedBy = "album", fetch = FetchType.LAZY)
-    private List<Song> songs;
-
-    @ManyToMany(mappedBy = "albums", fetch = FetchType.LAZY)
-    private List<Author> authors;
+//
+//    @OneToMany(mappedBy = "album", fetch = FetchType.LAZY)
+//    private List<Song> songs;
+//
+//    @ManyToMany(mappedBy = "albums", fetch = FetchType.LAZY)
+//    private List<Author> authors;
 }
 

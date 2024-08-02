@@ -16,6 +16,9 @@ public class SongService {
 
     public List<Song> getSongs() {
         List<Song> song = songRepository.findAll();
+        for (Song song1 : song) {
+            System.out.println(song1.getAlbum().getName());
+        }
         return song;
     }
 

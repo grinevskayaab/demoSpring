@@ -27,10 +27,10 @@ public class Song {
     private String name;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="album_id")
+//    @JoinColumn(name="album_id")
     private Album album;
-
-
-    @ManyToMany(mappedBy = "songs", fetch = FetchType.LAZY)
-    private List<Author> authors;
+//
+//
+////    @ManyToMany(mappedBy = "songs", fetch = FetchType.LAZY)
+////    private List<Author> authors;
 }

@@ -3,6 +3,8 @@ package com.github.grinevskayaab.demo.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import java.util.List;
 
@@ -23,7 +25,7 @@ public class Song {
     @Column
     private Integer year = null;
 
-    @Column(name = "name", nullable = false, unique = true)
+    @Column
     private String name;
 
     @ManyToOne(fetch = FetchType.LAZY)

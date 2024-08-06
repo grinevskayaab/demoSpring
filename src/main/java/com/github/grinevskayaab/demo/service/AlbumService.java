@@ -4,30 +4,37 @@ import com.github.grinevskayaab.demo.entity.Album;
 import com.github.grinevskayaab.demo.repository.AlbumRepository;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Transactional
 public class AlbumService {
 
     private final AlbumRepository albumRepository;
 
     public List<Album> getAlbums() {
-        return albumRepository.findAll();
+        List<Album> albums = albumRepository.findAllWithAuthors();
+
+        return !albums.isEmpty() ? albumRepository.findAllWithSongs() : albums;
     }
 
     public Album getAlbum(Long id) {
+        Optional<Album> album = albumRepository.findByIdWithAuthors(id);
 
-//        return albumRepository.findById(id).orElse(null);
-        Album album = albumRepository.findById(id).orElse(null);
-//        for(var song : album.getSongs()) {
-//            System.out.println(song.getName());
-//        }
-        return album;
+        return album.isPresent() ? albumRepository.findAByIdWithSongs(id).orElse(null) : null;
+
+    }
+
+    public Album getAlbumByName(String name) {
+        Optional<Album> album = albumRepository.findByNameWithAuthors(name);
+
+        return album.isPresent() ? albumRepository.findAByNameWithSongs(name).orElse(null) : null;
+
     }
 
     public Album createAlbum(Album album) {

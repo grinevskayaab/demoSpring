@@ -1,7 +1,8 @@
 package com.github.grinevskayaab.demo.controller;
 
-import com.github.grinevskayaab.demo.entity.Author;
+import com.github.grinevskayaab.demo.dto.SongSimpleDto;
 import com.github.grinevskayaab.demo.entity.Song;
+import com.github.grinevskayaab.demo.mapper.SongMapper;
 import com.github.grinevskayaab.demo.service.SongService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -14,18 +15,22 @@ import java.util.List;
 public class SongsController {
 
     private final SongService songService;
-
+    private final SongMapper songMapper;
 
     @GetMapping()
-    public List<Song> getSongs() {
-        return songService.getSongs();
+    public List<SongSimpleDto> getSongs() {
+        return songMapper.getSimpleDto(songService.getSongs());
     }
 
     @GetMapping("/{id}")
-    public Song getSong(@PathVariable("id") Long id) {
-        return songService.getSong(id);
+    public SongSimpleDto getSong(@PathVariable("id") Long id) {
+        return songMapper.getSimpleDto(songService.getSong(id));
     }
 
+    @GetMapping("/name/{name}")
+    public SongSimpleDto getSongByName(@PathVariable("name") String name) {
+        return songMapper.getSimpleDto(songService.getSongByName(name));
+    }
 
     @PostMapping()
     public Song createSong(@ModelAttribute("song") Song song) {

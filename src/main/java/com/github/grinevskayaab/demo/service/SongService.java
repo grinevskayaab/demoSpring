@@ -15,12 +15,15 @@ public class SongService {
     private final SongRepository songRepository;
 
     public List<Song> getSongs() {
-        List<Song> song = songRepository.findAll();
-        return song;
+        return songRepository.findAll();
     }
 
     public Song getSong(Long id) {
         return songRepository.findById(id).orElse(null);
+    }
+
+    public Song getSongByName(String name) {
+        return songRepository.findByName(name).orElse(null);
     }
 
     public Song createSong(Song song) {

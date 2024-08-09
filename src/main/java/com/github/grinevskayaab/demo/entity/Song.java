@@ -1,12 +1,10 @@
 package com.github.grinevskayaab.demo.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 
 import java.util.List;
+import java.util.Set;
 
 @Setter
 @Getter
@@ -33,6 +31,6 @@ public class Song {
     private Album album;
 
 
-    @ManyToMany(mappedBy = "songs", fetch = FetchType.LAZY)
-    private List<Author> authors;
+    @OneToMany(mappedBy = "song", fetch = FetchType.LAZY)
+    private Set<AuthorSong> authorSongs;
 }

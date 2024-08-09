@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -18,22 +19,26 @@ public class AlbumService {
     private final AlbumRepository albumRepository;
 
     public List<Album> getAlbums() {
-        List<Album> albums = albumRepository.findAllWithAuthors();
-
-        return !albums.isEmpty() ? albumRepository.findAllWithSongs() : albums;
+//        List<Album> albums = albumRepository.findAllWithAuthors();
+//
+//        return !albums.isEmpty() ? albumRepository.findAllWithSongs() : albums;
+        return albumRepository.findAll();
     }
 
     public Album getAlbum(Long id) {
-        Optional<Album> album = albumRepository.findByIdWithAuthors(id);
-
-        return album.isPresent() ? albumRepository.findAByIdWithSongs(id).orElse(null) : null;
+        Album album = albumRepository.findById(id).orElse(null);
+        return album;
+//        Optional<Album> album = albumRepository.findByIdWithAuthors(id);
+//
+//        return album.isPresent() ? albumRepository.findAByIdWithSongs(id).orElse(null) : null;
 
     }
 
     public Album getAlbumByName(String name) {
-        Optional<Album> album = albumRepository.findByNameWithAuthors(name);
-
-        return album.isPresent() ? albumRepository.findAByNameWithSongs(name).orElse(null) : null;
+        return albumRepository.findAlbumByName(name).orElse(null);
+//        Optional<Album> album = albumRepository.findByNameWithAuthors(name);
+//
+//        return album.isPresent() ? albumRepository.findAByNameWithSongs(name).orElse(null) : null;
 
     }
 

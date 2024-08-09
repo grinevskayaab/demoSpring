@@ -2,18 +2,15 @@ package com.github.grinevskayaab.demo.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
+
 
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
 
 @Entity
 @Table(name = "authors")
@@ -27,19 +24,9 @@ public class Author {
     @Column
     private String name;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "authors_songs",
-            joinColumns = {@JoinColumn(name = "author_id")},
-            inverseJoinColumns = {@JoinColumn(name = "song_id")}
-    )
-    private List<Song> songs;
+    @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
+    private Set<AuthorSong> authorSongs;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "authors_albums",
-            joinColumns = {@JoinColumn(name = "author_id")},
-            inverseJoinColumns = {@JoinColumn(name = "album_id")}
-    )
-    private List<Album> albums;
+    @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
+    private Set<AuthorAlbum> authorAlbums;
 }

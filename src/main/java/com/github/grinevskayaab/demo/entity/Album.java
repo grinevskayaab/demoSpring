@@ -8,6 +8,7 @@ import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.LazyCollection;
 
 import java.util.List;
+import java.util.Set;
 
 @Setter
 @Getter
@@ -30,9 +31,9 @@ public class Album {
     private Integer year = null;
 
     @OneToMany(mappedBy = "album", fetch = FetchType.LAZY)
-    private List<Song> songs;
+    private Set<Song> songs;
 
-    @ManyToMany(mappedBy = "albums", fetch = FetchType.LAZY)
-    private List<Author> authors;
+    @OneToMany(mappedBy = "album", fetch = FetchType.LAZY)
+    private Set<AuthorAlbum> authorAlbums;
 }
 

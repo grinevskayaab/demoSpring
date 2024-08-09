@@ -1,5 +1,6 @@
 package com.github.grinevskayaab.demo.controller;
 
+import com.github.grinevskayaab.demo.dto.SongFullDto;
 import com.github.grinevskayaab.demo.dto.SongSimpleDto;
 import com.github.grinevskayaab.demo.entity.Song;
 import com.github.grinevskayaab.demo.mapper.SongMapper;
@@ -8,11 +9,12 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/songs")
 @AllArgsConstructor
-public class SongsController {
+public class SongController {
 
     private final SongService songService;
     private final SongMapper songMapper;
@@ -23,8 +25,8 @@ public class SongsController {
     }
 
     @GetMapping("/{id}")
-    public SongSimpleDto getSong(@PathVariable("id") Long id) {
-        return songMapper.getSimpleDto(songService.getSong(id));
+    public SongFullDto getSong(@PathVariable("id") Long id) {
+        return songMapper.getFullDto(songService.getSong(id));
     }
 
     @GetMapping("/name/{name}")

@@ -15,28 +15,9 @@ import java.util.Optional;
 @Repository
 public interface AlbumRepository extends JpaRepository<Album, Long> {
 
-//    @Override
-//    @EntityGraph(attributePaths={"songs", "authors"})
-//    Optional<Album> findById(Long id);
+    @Override
+    @EntityGraph(attributePaths={"authorAlbums.author", "songs"})
+    Optional<Album> findById(Long id);
 
-
-    @Query(value = "select distinct album from Album album left join fetch album.songs where album.name=:name")
-    Optional<Album> findAByNameWithSongs(String name);
-
-    @Query(value = "select distinct album from Album album left join fetch album.authors  where album.name=:name")
-    Optional<Album> findByNameWithAuthors(String name);
-
-
-    @Query(value = "select distinct album from Album album left join fetch album.songs where album.id=:id")
-    Optional<Album> findAByIdWithSongs(Long id);
-
-    @Query(value = "select distinct album from Album album left join fetch album.authors  where album.id=:id")
-    Optional<Album> findByIdWithAuthors(Long id);
-
-
-    @Query(value = "select distinct album from Album album left join fetch album.songs")
-    List<Album> findAllWithSongs();
-
-    @Query(value = "select distinct album from Album album left join fetch album.authors")
-    List<Album> findAllWithAuthors();
+    Optional<Album> findAlbumByName(String name);
 }

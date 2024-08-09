@@ -1,5 +1,6 @@
 package com.github.grinevskayaab.demo.controller;
 
+import com.github.grinevskayaab.demo.dto.AuthorFullDto;
 import com.github.grinevskayaab.demo.dto.AuthorSimpleDto;
 import com.github.grinevskayaab.demo.mapper.AuthorMapper;
 import com.github.grinevskayaab.demo.service.AuthorService;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @AllArgsConstructor
@@ -25,8 +27,8 @@ public class AuthorController {
 
 
     @GetMapping("/{id}")
-    public AuthorSimpleDto getAuthor(@PathVariable("id") Long id) {
-        return authorMapper.getSimpleDto(authorService.getAuthor(id));
+    public AuthorFullDto getAuthor(@PathVariable("id") Long id) {
+        return authorMapper.getFullDto(authorService.getAuthor(id));
     }
 
     @GetMapping("/name/{name}")

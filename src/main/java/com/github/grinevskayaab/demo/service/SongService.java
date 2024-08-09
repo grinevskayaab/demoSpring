@@ -23,7 +23,8 @@ public class SongService {
     }
 
     public Song getSongByName(String name) {
-        return songRepository.findByName(name).orElse(null);
+        Song song = songRepository.findByName(name).orElse(null);
+        return song;
     }
 
     public Song createSong(Song song) {

@@ -2,13 +2,8 @@ package com.github.grinevskayaab.demo.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.BatchSize;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
-import org.hibernate.annotations.LazyCollection;
 
 import java.util.List;
-import java.util.Set;
 
 @Setter
 @Getter
@@ -31,9 +26,9 @@ public class Album {
     private Integer year = null;
 
     @OneToMany(mappedBy = "album", fetch = FetchType.LAZY)
-    private Set<Song> songs;
+    private List<Song> songs;
 
     @OneToMany(mappedBy = "album", fetch = FetchType.LAZY)
-    private Set<AuthorAlbum> authorAlbums;
+    private List<AuthorAlbum> authorAlbums;
 }
 

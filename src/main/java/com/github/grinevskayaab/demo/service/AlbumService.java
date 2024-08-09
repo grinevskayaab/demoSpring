@@ -3,13 +3,11 @@ package com.github.grinevskayaab.demo.service;
 import com.github.grinevskayaab.demo.entity.Album;
 import com.github.grinevskayaab.demo.repository.AlbumRepository;
 import jakarta.transaction.Transactional;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -19,19 +17,13 @@ public class AlbumService {
     private final AlbumRepository albumRepository;
 
     public List<Album> getAlbums() {
-//        List<Album> albums = albumRepository.findAllWithAuthors();
-//
-//        return !albums.isEmpty() ? albumRepository.findAllWithSongs() : albums;
         return albumRepository.findAll();
     }
 
     public Album getAlbum(Long id) {
-        Album album = albumRepository.findById(id).orElse(null);
-        return album;
-//        Optional<Album> album = albumRepository.findByIdWithAuthors(id);
-//
-//        return album.isPresent() ? albumRepository.findAByIdWithSongs(id).orElse(null) : null;
+        Optional<Album> album = albumRepository.findByIdWithAuthors(id);
 
+        return album.isPresent() ? albumRepository.findByIdWithSongs(id).orElse(null) : null;
     }
 
     public Album getAlbumByName(String name) {

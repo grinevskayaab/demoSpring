@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -19,7 +20,9 @@ public class AuthorService {
     }
 
     public Author getAuthor(Long id) {
-        return authorRepository.findById(id).orElse(null);
+        Optional<Author> author = authorRepository.findByIdWithSongs(id);
+
+        return author.isPresent()? authorRepository.findByIdWithAlbums(id).orElse(null): null;
     }
 
     public Author getAuthorByName(String name) {

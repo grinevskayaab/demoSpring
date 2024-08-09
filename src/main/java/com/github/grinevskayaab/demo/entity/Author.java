@@ -3,9 +3,7 @@ package com.github.grinevskayaab.demo.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-
 import java.util.List;
-import java.util.Set;
 
 @Getter
 @Setter
@@ -25,8 +23,8 @@ public class Author {
     private String name;
 
     @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
-    private Set<AuthorSong> authorSongs;
+    private List<AuthorSong> authorSongs;
 
     @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
-    private Set<AuthorAlbum> authorAlbums;
+    private List<AuthorAlbum> authorAlbums;
 }

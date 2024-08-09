@@ -9,7 +9,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Set;
 
 @RestController
 @RequestMapping("/songs")
@@ -26,7 +25,8 @@ public class SongController {
 
     @GetMapping("/{id}")
     public SongFullDto getSong(@PathVariable("id") Long id) {
-        return songMapper.getFullDto(songService.getSong(id));
+        Song song = songService.getSong(id);
+        return songMapper.getFullDto(song);
     }
 
     @GetMapping("/name/{name}")

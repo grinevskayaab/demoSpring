@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.List;
-import java.util.Set;
 
 @Setter
 @Getter
@@ -32,5 +31,5 @@ public class Song {
 
 
     @OneToMany(mappedBy = "song", fetch = FetchType.LAZY)
-    private Set<AuthorSong> authorSongs;
+    private List<AuthorSong> authorSongs;
 }

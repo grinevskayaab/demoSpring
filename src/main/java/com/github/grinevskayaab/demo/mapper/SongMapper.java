@@ -3,7 +3,6 @@ package com.github.grinevskayaab.demo.mapper;
 import com.github.grinevskayaab.demo.dto.SongFullDto;
 import com.github.grinevskayaab.demo.dto.SongSimpleDto;
 import com.github.grinevskayaab.demo.entity.Song;
-import org.hibernate.mapping.Set;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;

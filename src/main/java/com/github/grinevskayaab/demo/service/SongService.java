@@ -20,11 +20,12 @@ public class SongService {
 
     public Song getSong(Long id) {
         return songRepository.findById(id).orElse(null);
+//        Optional<Song> song = songRepository.findByIdWithAuthors(id);
+//        return song.isPresent() ? songRepository.findByIdWithAlbum(id).orElse(null) : null;
     }
 
     public Song getSongByName(String name) {
-        Song song = songRepository.findByName(name).orElse(null);
-        return song;
+        return songRepository.findByName(name).orElse(null);
     }
 
     public Song createSong(Song song) {

@@ -23,7 +23,7 @@ public interface HelperMapper {
 
     @Named("getAlbumSimpleDtoFromAuthorAlbum")
     default AlbumSimpleDto getAlbumSimpleDtoFromAuthorAlbum(AuthorAlbum authorAlbum) {
-        return Mappers.getMapper(AlbumMapper.class).getSimpleDto(authorAlbum.getAlbum());
+        return Mappers.getMapper(MapstructAlbumMapper.class).getSimpleDto(authorAlbum.getAlbum());
     }
 
     @Named("getAuthorSimpleDtoFromAuthorSong")
@@ -38,7 +38,7 @@ public interface HelperMapper {
 
     @Named("getAlbumSimpleDtoFromAlbum")
     default AlbumSimpleDto getAlbumSimpleDtoFromAlbum(Album album) {
-        return Mappers.getMapper(AlbumMapper.class).getSimpleDto(album);
+        return Mappers.getMapper(MapstructAlbumMapper.class).getSimpleDto(album);
     }
 
     @Named("getSongSimpleDtoFromAuthorSong")

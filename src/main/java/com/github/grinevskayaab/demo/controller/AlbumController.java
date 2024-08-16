@@ -6,6 +6,7 @@ import com.github.grinevskayaab.demo.entity.Album;
 import com.github.grinevskayaab.demo.mapper.AlbumMapper;
 import com.github.grinevskayaab.demo.service.AlbumService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

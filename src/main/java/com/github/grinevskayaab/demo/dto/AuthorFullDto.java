@@ -1,6 +1,13 @@
 package com.github.grinevskayaab.demo.dto;
 
+import lombok.Data;
+
 import java.util.List;
 
-public record AuthorFullDto(Integer id, String name, List<AlbumSimpleDto> albums, List<SongSimpleDto> songs){
+@Data
+public class AuthorFullDto{
+    private Integer id;
+    private String name;
+    private List<AlbumSimpleDto> albums;
+    private List<SongSimpleDto> songs;
 }

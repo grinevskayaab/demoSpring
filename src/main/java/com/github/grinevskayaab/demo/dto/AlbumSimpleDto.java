@@ -1,7 +1,11 @@
 package com.github.grinevskayaab.demo.dto;
 
 
-import java.util.List;
+import lombok.Data;
 
-public record AlbumSimpleDto(Long id, String name, Integer year) {
+@Data
+public class AlbumSimpleDto {
+    private Long id;
+    private String name;
+    private Integer year;
 }

@@ -1,9 +1,12 @@
-package com.github.grinevskayaab.demo.mapper;
+package com.github.grinevskayaab.demo.mapper.mapstruct;
 
 import com.github.grinevskayaab.demo.dto.*;
 import com.github.grinevskayaab.demo.entity.*;
+import com.github.grinevskayaab.demo.mapper.AlbumMapper;
 import org.mapstruct.*;
 import org.mapstruct.factory.Mappers;
+import org.springframework.context.annotation.Primary;
+
 
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING, uses = HelperMapper.class)

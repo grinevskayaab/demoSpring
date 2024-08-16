@@ -1,4 +1,4 @@
-package com.github.grinevskayaab.demo.mapper;
+package com.github.grinevskayaab.demo.mapper.mapstruct;
 
 import com.github.grinevskayaab.demo.dto.AlbumSimpleDto;
 import com.github.grinevskayaab.demo.dto.AuthorSimpleDto;
@@ -7,6 +7,8 @@ import com.github.grinevskayaab.demo.entity.Album;
 import com.github.grinevskayaab.demo.entity.AuthorAlbum;
 import com.github.grinevskayaab.demo.entity.AuthorSong;
 import com.github.grinevskayaab.demo.entity.Song;
+import com.github.grinevskayaab.demo.mapper.AuthorMapper;
+import com.github.grinevskayaab.demo.mapper.SongMapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingConstants;
 import org.mapstruct.Named;
@@ -18,7 +20,7 @@ public interface HelperMapper {
 
     @Named("getAuthorSimpleDtoFromAuthorAlbum")
     default AuthorSimpleDto getAuthorSimpleDtoFromAuthorAlbum(AuthorAlbum authorAlbum) {
-        return Mappers.getMapper(AuthorMapper.class).getSimpleDto(authorAlbum.getAuthor());
+        return Mappers.getMapper(MapstructAuthorMapper.class).getSimpleDto(authorAlbum.getAuthor());
     }
 
     @Named("getAlbumSimpleDtoFromAuthorAlbum")
@@ -28,12 +30,12 @@ public interface HelperMapper {
 
     @Named("getAuthorSimpleDtoFromAuthorSong")
     default AuthorSimpleDto getAuthorSimpleDtoFromAuthorSong(AuthorSong authorSong) {
-        return Mappers.getMapper(AuthorMapper.class).getSimpleDto(authorSong.getAuthor());
+        return Mappers.getMapper(MapstructAuthorMapper.class).getSimpleDto(authorSong.getAuthor());
     }
 
     @Named("getSongSimpleDtoFromSong")
     default SongSimpleDto getSongSimpleDtoFromSong(Song song) {
-        return Mappers.getMapper(SongMapper.class).getSimpleDto(song);
+        return Mappers.getMapper(MapstructSongMapper.class).getSimpleDto(song);
     }
 
     @Named("getAlbumSimpleDtoFromAlbum")
@@ -43,6 +45,6 @@ public interface HelperMapper {
 
     @Named("getSongSimpleDtoFromAuthorSong")
     default SongSimpleDto getSongSimpleDtoFromAuthorSong(AuthorSong authorSong) {
-        return Mappers.getMapper(SongMapper.class).getSimpleDto(authorSong.getSong());
+        return Mappers.getMapper(MapstructSongMapper.class).getSimpleDto(authorSong.getSong());
     }
 }

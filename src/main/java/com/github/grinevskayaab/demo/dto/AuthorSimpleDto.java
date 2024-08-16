@@ -1,7 +1,11 @@
 package com.github.grinevskayaab.demo.dto;
 
 
-import java.util.List;
+import lombok.Data;
 
-public record AuthorSimpleDto(Integer id, String name){
+
+@Data
+public class AuthorSimpleDto {
+    private Integer id;
+    private String name;
 }

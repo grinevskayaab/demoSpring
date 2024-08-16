@@ -7,7 +7,7 @@ import com.github.grinevskayaab.demo.entity.Album;
 import java.util.List;
 
 public interface AlbumMapper {
-    List<AlbumSimpleDto> getSimpleDto(List<Album> album);
+    List<AlbumSimpleDto> getSimpleDto(List<Album> albums);
     AlbumSimpleDto getSimpleDto(Album album);
     AlbumFullDto getFullDto(Album album);
 }

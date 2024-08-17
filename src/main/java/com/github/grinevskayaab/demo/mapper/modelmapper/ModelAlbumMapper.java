@@ -2,12 +2,8 @@ package com.github.grinevskayaab.demo.mapper.modelmapper;
 
 import com.github.grinevskayaab.demo.dto.AlbumFullDto;
 import com.github.grinevskayaab.demo.dto.AlbumSimpleDto;
-import com.github.grinevskayaab.demo.dto.AuthorSimpleDto;
-import com.github.grinevskayaab.demo.dto.SongSimpleDto;
 import com.github.grinevskayaab.demo.entity.Album;
 import com.github.grinevskayaab.demo.entity.AuthorAlbum;
-import com.github.grinevskayaab.demo.entity.AuthorSong;
-import com.github.grinevskayaab.demo.entity.Song;
 import com.github.grinevskayaab.demo.mapper.AlbumMapper;
 import org.modelmapper.AbstractConverter;
 import org.modelmapper.Converter;
@@ -21,11 +17,21 @@ import java.util.List;
 @Primary
 public class ModelAlbumMapper implements AlbumMapper {
     private final ModelMapper modelMapper;
-    private final HelperModelMapper helper;
 
     public ModelAlbumMapper() {
         this.modelMapper = new ModelMapper();
-        this.helper = new HelperModelMapper();
+        Converter<List<AuthorAlbum>, List<AlbumSimpleDto>> authorToAuthorSimpleDto =
+                new AbstractConverter<>() {
+                    @Override
+                    protected List<AlbumSimpleDto> convert(List<AuthorAlbum> authorAlbums) {
+                        return authorAlbums.stream().map(el -> modelMapper.map(el.getAlbum(), AlbumSimpleDto.class)).toList();
+                    }
+                };
+
+        modelMapper.createTypeMap(Album.class, AlbumFullDto.class)
+                .addMappings(
+                        mapper -> mapper.using(authorToAuthorSimpleDto).map(Album::getAuthorAlbums, AlbumFullDto::setAuthors)
+                );
     }
 
     @Override
@@ -40,18 +46,7 @@ public class ModelAlbumMapper implements AlbumMapper {
 
     @Override
     public AlbumFullDto getFullDto(Album album) {
-        Converter<List<AuthorAlbum>, List<AuthorSimpleDto>> authorToAuthorSimpleDto =
-                new AbstractConverter<>() {
-                    @Override
-                    protected List<AuthorSimpleDto> convert(List<AuthorAlbum> authorAlbums) {
-                        return authorAlbums.stream().map(el -> modelMapper.map(el.getAuthor(), AuthorSimpleDto.class)).toList();
-                    }
-                };
 
-        modelMapper.createTypeMap(Album.class, AlbumFullDto.class)
-                .addMappings(
-                        mapper -> mapper.using(authorToAuthorSimpleDto).map(Album::getAuthorAlbums, AlbumFullDto::setAuthors)
-                );
         return modelMapper.map(album, AlbumFullDto.class);
     }
 }

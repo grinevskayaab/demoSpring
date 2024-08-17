@@ -5,13 +5,11 @@ import com.github.grinevskayaab.demo.entity.*;
 import com.github.grinevskayaab.demo.mapper.AlbumMapper;
 import org.mapstruct.*;
 import org.mapstruct.factory.Mappers;
-import org.springframework.context.annotation.Primary;
-
 
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING, uses = HelperMapper.class)
 public interface MapstructAlbumMapper extends AlbumMapper {
-    AlbumMapper INSTANCE = Mappers.getMapper(MapstructAlbumMapper.class);
+    MapstructAlbumMapper INSTANCE = Mappers.getMapper(MapstructAlbumMapper.class);
 
     @Override
     @Mapping(source = "authorAlbums", target = "authors", qualifiedByName = "getAuthorSimpleDtoFromAuthorAlbum")

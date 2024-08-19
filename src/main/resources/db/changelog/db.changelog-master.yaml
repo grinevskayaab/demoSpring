@@ -1,0 +1,7 @@
+databaseChangeLog:
+  - include:
+      # create
+      file: db/changelog/V1__create_table.sql
+  - include:
+      # data
+      file: db/changelog/V2__insert_table.sql

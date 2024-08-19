@@ -1,14 +1,19 @@
+--liquibase formatted sql
+
+--changeset Insert_table:1
 INSERT INTO authors(id, name)
 VALUES (1, 'Guf'),
        (2, 'Slim'),
        (3, 'Basta');
 
+--changeset Insert_table:2
 INSERT INTO albums(id, name)
 VALUES (1, 'Альбом Гуфа'),
        (2, 'Альбом Слима'),
        (3, 'Альбом Басты'),
        (4, 'Совместный альбом Гуфа и Басты');
 
+--changeset Insert_table:3
 INSERT INTO authors_albums(id, author_id, album_id)
 VALUES (1, 1, 1),
        (2, 2, 2),
@@ -16,6 +21,7 @@ VALUES (1, 1, 1),
        (4, 1, 4),
        (5, 3, 4);
 
+--changeset Insert_table:4
 INSERT INTO songs(id, album_id, name)
 VALUES (1, 1, 'Песня Гуфа 1'),
        (2, 1, 'Песня Гуфа 2'),
@@ -34,6 +40,7 @@ VALUES (1, 1, 'Песня Гуфа 1'),
        (15, null, 'Сингл Басты 1'),
        (16, null, 'Сингл Басты 2');
 
+--changeset Insert_table:5
 INSERT INTO authors_songs(id, author_id, song_id)
 VALUES (1, 1, 1),
        (2, 1, 2),
@@ -54,6 +61,7 @@ VALUES (1, 1, 1),
        (17, 3, 15),
        (18, 3, 16);
 
+--changeset Insert_table:6
 INSERT INTO songs_stat(song_id, date, count_plays)
 VALUES (1, '2024-05-01', FLOOR(RANDOM() * (1000 - 5 + 1)) + 5),
        (1, '2024-04-01', FLOOR(RANDOM() * (1000 - 5 + 1)) + 5),
